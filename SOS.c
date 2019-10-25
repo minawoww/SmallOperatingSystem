@@ -115,12 +115,14 @@ void SOS_Scheduler(void)
 			// loop to execute the functions ready in the priority buffers.
 			for (LocalIterator = 0 ; LocalIterator < MAX_PRIORITY_LEVEL ; LocalIterator++)
 			{
-				while(ST_ArrayOfReadyTasks[LocalIterator].Numb_of_elements > 0)
+				
+				if (ST_ArrayOfReadyTasks[LocalIterator].Numb_of_elements > 0)
 				{
 					dequeue(LocalIterator , &CurrentTask);
 					CurrentTask.PtrTask();
-					
+					LocalIterator = MAX_PRIORITY_LEVEL;
 				}
+				
 			}
 		sleep_mode();
 	}
